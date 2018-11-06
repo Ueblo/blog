@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from 127.0.0.1:2368/when-does-google-shopping-actions-collect-order-payment/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Nov 2018 21:38:33 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 
@@ -26,7 +24,7 @@
     <meta property="og:url" content="http://blog.ueblo.com/when-does-google-shopping-actions-collect-order-payment/" />
     <meta property="og:image" content="https://images.unsplash.com/photo-1534497977663-a73dfabd7774?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=0881a014fb21de27f457de451b2b1cb1" />
     <meta property="article:published_time" content="2018-11-05T08:06:01.000Z" />
-    <meta property="article:modified_time" content="2018-11-05T09:05:41.000Z" />
+    <meta property="article:modified_time" content="2018-11-06T21:59:01.000Z" />
     <meta property="article:tag" content="Frequently Asked Questions" />
     
     <meta name="twitter:card" content="summary_large_image" />
@@ -69,7 +67,7 @@
     "headline": "When Does Google Shopping Actions Collect Order Payment?",
     "url": "http://blog.ueblo.com/when-does-google-shopping-actions-collect-order-payment/",
     "datePublished": "2018-11-05T08:06:01.000Z",
-    "dateModified": "2018-11-05T09:05:41.000Z",
+    "dateModified": "2018-11-06T21:59:01.000Z",
     "image": {
         "@type": "ImageObject",
         "url": "https://images.unsplash.com/photo-1534497977663-a73dfabd7774?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=0881a014fb21de27f457de451b2b1cb1",
@@ -145,7 +143,7 @@ ghost.init({
 
             <section class="post-full-content">
                 <div class="post-content">
-                    <p>When a customer places an order, Google marks it as pending and gives the customer 30 minutes to cancel the whole order or individual line items. Google then collects the payment for the order and marks the order as pending shipment. Then, Ueblo adds the order to Shopify, marked as paid.</p><p>Note: In a future update, Ueblo may add pending orders to Shopify so that you can reserve inventory.</p>
+                    <p>When a customer places an order, Google marks it as pending and gives the customer 30 minutes to cancel the whole order or individual line items. Google then collects the payment for the order and marks the order as pending shipment. Then, Ueblo adds the order to Shopify, marked as paid.</p><p>Note: In a future update, Ueblo may add pending orders to Shopify so that you can reserve inventory. </p><p><a href="https://ueblo.com/index.html#signup">Click here to sign up for the Free Ueblo Beta</a>.</p>
                 </div>
             </section>
 
@@ -401,10 +399,73 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
 
     
 
 </body>
-
-<!-- Mirrored from 127.0.0.1:2368/when-does-google-shopping-actions-collect-order-payment/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Nov 2018 21:38:33 GMT -->
 </html>

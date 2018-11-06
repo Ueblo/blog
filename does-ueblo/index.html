@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from 127.0.0.1:2368/does-ueblo/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Nov 2018 21:38:29 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 
@@ -22,16 +20,16 @@
     <meta property="og:site_name" content="Ueblo" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Will Ueblo Modify my Shopify Theme?" />
-    <meta property="og:description" content="No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend." />
+    <meta property="og:description" content="No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.  Click here to sign up for the Free Ueblo Beta." />
     <meta property="og:url" content="http://blog.ueblo.com/does-ueblo/" />
     <meta property="og:image" content="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=b66f27eec0d809cfc1cdafa7361b8f49" />
     <meta property="article:published_time" content="2018-11-06T02:00:11.000Z" />
-    <meta property="article:modified_time" content="2018-11-06T20:45:28.000Z" />
+    <meta property="article:modified_time" content="2018-11-06T21:58:10.000Z" />
     <meta property="article:tag" content="Frequently Asked Questions" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Will Ueblo Modify my Shopify Theme?" />
-    <meta name="twitter:description" content="No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend." />
+    <meta name="twitter:description" content="No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.  Click here to sign up for the Free Ueblo Beta." />
     <meta name="twitter:url" content="http://blog.ueblo.com/does-ueblo/" />
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=b66f27eec0d809cfc1cdafa7361b8f49" />
     <meta name="twitter:label1" content="Written by" />
@@ -69,7 +67,7 @@
     "headline": "Will Ueblo Modify my Shopify Theme?",
     "url": "http://blog.ueblo.com/does-ueblo/",
     "datePublished": "2018-11-06T02:00:11.000Z",
-    "dateModified": "2018-11-06T20:45:28.000Z",
+    "dateModified": "2018-11-06T21:58:10.000Z",
     "image": {
         "@type": "ImageObject",
         "url": "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=b66f27eec0d809cfc1cdafa7361b8f49",
@@ -77,7 +75,7 @@
         "height": 720
     },
     "keywords": "Frequently Asked Questions",
-    "description": "No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.",
+    "description": "No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.  Click here to sign up for the Free Ueblo Beta.",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "http://blog.ueblo.com/"
@@ -145,7 +143,7 @@ ghost.init({
 
             <section class="post-full-content">
                 <div class="post-content">
-                    <p>No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.</p>
+                    <p>No. Ueblo will not modify your Shopify theme. Ueblo works within your Shopify backend.</p><p> <a href="https://ueblo.com/index.html#signup"> Click here to sign up for the Free Ueblo Beta</a>.</p>
                 </div>
             </section>
 
@@ -336,11 +334,138 @@ ghost.init({
     <script type="text/javascript" src="../assets/built/jquery.fitvids546b.js?v=211a12cca8"></script>
 
 
-    
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
+<script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
 
     
 
 </body>
-
-<!-- Mirrored from 127.0.0.1:2368/does-ueblo/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 06 Nov 2018 21:38:29 GMT -->
 </html>
