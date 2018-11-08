@@ -10,7 +10,7 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="../assets/built/screen546b.css?v=211a12cca8" />
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen9a56.css?v=d8e8199e38" />
 
     <link rel="shortcut icon" href="../favicon.png" type="image/png" />
     <link rel="canonical" href="http://blog.ueblo.com/how-to-install-google-shopping-actions-by-ueblo-for-shopify/" />
@@ -36,7 +36,6 @@
     <meta name="twitter:data1" content="Lawrence Weru" />
     <meta name="twitter:label2" content="Filed under" />
     <meta name="twitter:data2" content="Frequently Asked Questions" />
-    <meta name="twitter:creator" content="@LarryWeru" />
     <meta property="og:image:width" content="1114" />
     <meta property="og:image:height" content="672" />
     
@@ -59,10 +58,7 @@
             "height": 250
         },
         "url": "http://blog.ueblo.com/author/lawrence/",
-        "sameAs": [
-            "http://lweru.com",
-            "https://twitter.com/LarryWeru"
-        ]
+        "sameAs": []
     },
     "headline": "How to Install Google Shopping Actions by Ueblo on Shopify",
     "url": "http://blog.ueblo.com/how-to-install-google-shopping-actions-by-ueblo-for-shopify/",
@@ -83,14 +79,14 @@
 }
     </script>
 
-    <script src="../public/ghost-sdk546b.js?v=211a12cca8"></script>
+    <script src="../public/ghost-sdk9a56.js?v=d8e8199e38"></script>
 <script>
 ghost.init({
 	clientId: "ghost-frontend",
-	clientSecret: "e56d3ff9c6bb"
+	clientSecret: "22a89ac4b2fe"
 });
 </script>
-    <meta name="generator" content="Ghost 2.4" />
+    <meta name="generator" content="Ghost 2.5" />
     <link rel="alternate" type="application/rss+xml" title="Ueblo" href="http://blog.ueblo.com/rss/" />
 
 </head>
@@ -198,7 +194,7 @@ ghost.init({
         <img class="author-profile-image" src="http://www.gravatar.com/avatar/7c9b02b7b87f5bd16cd507155d602b15?s=250&amp;d=mm&amp;r=x" alt="Lawrence Weru" />
     <section class="author-card-content">
         <h4 class="author-card-name"><a href="../author/lawrence/index.html">Lawrence Weru</a></h4>
-            <p>Lawrence&#x27;s contributions are featured by Fast Company, TEDx, and DZone. He’s a 7 Under 30 alumnus of Florida State University. ䷨→䷴</p>
+            <p>Read <a href="../author/lawrence/index.html">more posts</a> by this author.</p>
     </section>
 </section>
 <div class="post-full-footer-right">
@@ -259,10 +255,10 @@ ghost.init({
                 <li class="author-list-item">
 
                     <div class="author-name-tooltip">
-                        Lawrence Weru
+                        Ueblo Team
                     </div>
 
-                        <a href="../author/lawrence/index.html" class="static-avatar"><img class="author-profile-image" src="http://www.gravatar.com/avatar/7c9b02b7b87f5bd16cd507155d602b15?s=250&amp;d=mm&amp;r=x" alt="Lawrence Weru" /></a>
+                        <a href="../author/ueblo/index.html" class="static-avatar"><img class="author-profile-image" src="../content/images/2018/11/Ueblo_logo_smile_square-copy.png" alt="Ueblo Team" /></a>
                 </li>
             </ul>
 
@@ -341,10 +337,74 @@ ghost.init({
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="../assets/built/jquery.fitvids546b.js?v=211a12cca8"></script>
+    <script type="text/javascript" src="../assets/built/jquery.fitvids9a56.js?v=d8e8199e38"></script>
 
 
-    
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
 
     
 
