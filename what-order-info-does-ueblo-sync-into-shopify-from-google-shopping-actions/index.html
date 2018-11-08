@@ -46,7 +46,7 @@
     "publisher": {
         "@type": "Organization",
         "name": "Ueblo",
-        "logo": "http://blog.ueblo.com/content/images/2018/11/Ueblo_logo-white-text-blog-1.png"
+        "logo": "http://blog.ueblo.com/content/images/2018/11/Ueblo_logo-white-text-blog.png"
     },
     "author": {
         "@type": "Person",
@@ -102,7 +102,7 @@ ghost.init({
     <div class="inner">
         <nav class="site-nav">
     <div class="site-nav-left">
-                <a class="site-nav-logo" href="http://blog.ueblo.com/"><img src="../content/images/2018/11/Ueblo_logo-white-text-blog-1.png" alt="Ueblo" /></a>
+                <a class="site-nav-logo" href="http://blog.ueblo.com/"><img src="../content/images/2018/11/Ueblo_logo-white-text-blog.png" alt="Ueblo" /></a>
             <ul class="nav" role="menu">
     <li class="nav-home" role="menuitem"><a href="https://ueblo.com/">Home</a></li>
     <li class="nav-sign-up" role="menuitem"><a href="https://ueblo.com/index.html#signup">Sign Up</a></li>
@@ -235,7 +235,7 @@ ghost.init({
 <div class="floating-header">
     <div class="floating-header-logo">
         <a href="http://blog.ueblo.com/">
-                <img src="../content/images/2018/11/Ueblo_logo_smile_square-copy.png" alt="Ueblo icon" />
+                <img src="../content/images/2018/11/Ueblo_logo_smile_square-copy-1.png" alt="Ueblo icon" />
             <span>Ueblo</span>
         </a>
     </div>
@@ -301,6 +301,71 @@ ghost.init({
 
 
     <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
+<script>
 
 // NOTE: Scroll performance is poor in Safari
 // - this appears to be due to the events firing much more slowly in Safari.
