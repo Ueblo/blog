@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Mirrored from 127.0.0.1:2368/how-can-i-tell-if-an-order-came-from-google-via-ueblo/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Jan 2019 22:37:28 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 
@@ -10,7 +12,7 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="../assets/built/screen9a56.css?v=d8e8199e38" />
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen7aa1.css?v=bc702bd812" />
 
     <link rel="shortcut icon" href="../favicon.png" type="image/png" />
     <link rel="canonical" href="http://blog.ueblo.com/how-can-i-tell-if-an-order-came-from-google-via-ueblo/" />
@@ -81,7 +83,7 @@
 }
     </script>
 
-    <script src="../public/ghost-sdk9a56.js?v=d8e8199e38"></script>
+    <script src="../public/ghost-sdk7aa1.js?v=bc702bd812"></script>
 <script>
 ghost.init({
 	clientId: "ghost-frontend",
@@ -327,7 +329,7 @@ drift.load('ddgy3r4ggzda');
 
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="http://blog.ueblo.com/">Ueblo</a> &copy; 2018</section>
+                <section class="copyright"><a href="http://blog.ueblo.com/">Ueblo</a> &copy; 2019</section>
                 <nav class="site-footer-nav">
                     <a href="http://blog.ueblo.com/">Latest Posts</a>
                     
@@ -356,76 +358,14 @@ drift.load('ddgy3r4ggzda');
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="../assets/built/jquery.fitvids9a56.js?v=d8e8199e38"></script>
-
-
-    <script>
-
-// NOTE: Scroll performance is poor in Safari
-// - this appears to be due to the events firing much more slowly in Safari.
-//   Dropping the scroll event and using only a raf loop results in smoother
-//   scrolling but continuous processing even when not scrolling
-$(document).ready(function () {
-    // Start fitVids
-    var $postContent = $(".post-full-content");
-    $postContent.fitVids();
-    // End fitVids
-
-    var progressBar = document.querySelector('#reading-progress');
-    var header = document.querySelector('.floating-header');
-    var title = document.querySelector('.post-full-title');
-
-    var lastScrollY = window.scrollY;
-    var lastWindowHeight = window.innerHeight;
-    var lastDocumentHeight = $(document).height();
-    var ticking = false;
-
-    function onScroll() {
-        lastScrollY = window.scrollY;
-        requestTick();
-    }
-
-    function onResize() {
-        lastWindowHeight = window.innerHeight;
-        lastDocumentHeight = $(document).height();
-        requestTick();
-    }
-
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(update);
-        }
-        ticking = true;
-    }
-
-    function update() {
-        var trigger = title.getBoundingClientRect().top + window.scrollY;
-        var triggerOffset = title.offsetHeight + 35;
-        var progressMax = lastDocumentHeight - lastWindowHeight;
-
-        // show/hide floating header
-        if (lastScrollY >= trigger + triggerOffset) {
-            header.classList.add('floating-active');
-        } else {
-            header.classList.remove('floating-active');
-        }
-
-        progressBar.setAttribute('max', progressMax);
-        progressBar.setAttribute('value', lastScrollY);
-
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', onScroll, {passive: true});
-    window.addEventListener('resize', onResize, false);
-
-    update();
-
-});
-</script>
+    <script type="text/javascript" src="../assets/built/jquery.fitvids7aa1.js?v=bc702bd812"></script>
 
 
     
 
+    
+
 </body>
+
+<!-- Mirrored from 127.0.0.1:2368/how-can-i-tell-if-an-order-came-from-google-via-ueblo/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Jan 2019 22:37:28 GMT -->
 </html>
